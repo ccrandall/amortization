@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  div(class='results')
+    legend Loan Summary
+    #summary.row
+    .span2 
+      h3 $#{data.monthly_payment} 
+    |  Monthly Principal & Interest
+    .span2 { }
+      h3 $ #{}total_of_payments += $principal_payment + $interest_payment;
+    |  Total of { #data.number_of_payments } Payments
+    .span2
+      h3 $ 
+    |  Total Interest Paid
+    .span2
+      h3  
+    |  Pay-off Date
+    legend Amortization Schedule
+    |
+    table.table.table-striped.table-bordered.table-condensed
+      thead
+        tr
+          th Date
+          th(style='background-color: #fcf8e3') Interest
+          th(style='background-color: #dff0d8') Principal
+          th(style='background-color: #f2dede') Balance
+      tbody
+        - for(var i=0; i<= data.number_of_payments; i++)
+          - var remaining_balance = (data.balance * data.yearly_periodic_interest_rate/12+data.balance) - data.monthly_payment;
+          - var interest_payment = (balance * data.yearly_periodic_interest_rate)/12;
+          - balance = remaining_balance.toFixed(2);
+          tr
+            td Date #{i}
+            td #{interest_payment}
+            td Principal Payment
+            td #{remaining_balance}
+    

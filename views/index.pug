@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  if errors != null
+    - for(i=0; i<=errors.length-1;i++)
+      p
+      p(class='alert alert-danger') The form input #{errors[i].param} has error: #{errors[i].msg}
+    
+  form#loanForm.form-vertical(method='post', action='/calculate')
+    fieldset
+      legend Loan info
+      input(type='hidden', name='param[action]', value='calculate')
+      .control-group
+        label.control-label(for='input01') Loan amount:
+        .controls
+          .input-append
+            input#input01.input-small(type='text', name='param[principal]', value='15000')
+            span.add-on $
+      .control-group
+        label.control-label(for='input02') Loan term:
+        .controls
+          .input-append
+            input#input02.input-mini(type='text', name='param[term]', value='5')
+            span.add-on years
+      .control-group
+        label.control-label(for='input03') Interest rate:
+        .controls
+          .input-append
+            input#input03.input-mini(type='text', name='param[interest_rate]', value='6')
+      .control-group
+        label.control-label(for='select01') Start date:
+        .controls
+          input#select01span1(type='date', name='param[start_date]' required)
+      //
+        <div class="control-group">
+        <label class="control-label" for="select03">Amortization:</label>
+        <div class="controls">
+        <label class="radio"><input type="radio" name="param[amort_schedule]" value="2" checked="checked" id="select03">show by month</label>
+        <label class="radio"><input type="radio" name="param[amort_schedule]" value="1" id="select03">show by year</label>
+        </div>
+        </div>
+      .form-actions
+        button.btn.btn-large.btn-primary(type='submit') Calculate
